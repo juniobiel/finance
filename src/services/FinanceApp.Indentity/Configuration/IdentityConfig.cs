@@ -18,6 +18,8 @@ namespace FinanceApp.Indentity.API.Configuration
                 .AddRoles<IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
                 .AddEntityFrameworkStores<IdentityApplicationDbContext>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddUserManager<UserManager<IdentityUser>>()
                 .AddDefaultTokenProviders();
 
             services.AddJwtConfiguration(configuration);
