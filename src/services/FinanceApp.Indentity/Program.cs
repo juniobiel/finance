@@ -14,8 +14,8 @@ if (builder.Environment.IsDevelopment())
 // Add services to the container.
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 builder.Services.AddApiConfiguration();
-builder.Services.AddMessageBusConfiguration(builder.Configuration);
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 
 var app = builder.Build();
