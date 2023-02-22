@@ -1,0 +1,148 @@
+_id: spc_3da6b4c5668a429e8e879f97de6457dc
+type: ApiSpec
+parentId: wrk_78a24c89d06444d3b4111b6be02a7203
+modified: 1677091388933
+created: 1676915782046
+fileName: Identity.yaml
+contents: |-
+  {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Finance App Identity API",
+      "description": "Api do identity para finance app",
+      "contact": {
+        "name": "Gabriel Junio",
+        "email": "gabrieljunio.fp@gmail.com"
+      },
+      "license": {
+        "name": "GNU",
+        "url": "https://www.gnu.org/licenses/lgpl-3.0.html"
+      },
+      "version": "1"
+    },
+    "paths": {
+      "/create-account": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioRegistro"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioRegistro"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioRegistro"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/sign-in": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioLogin"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioLogin"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioLogin"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/sign-out": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "UsuarioLogin": {
+          "required": [
+            "email",
+            "senha"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "minLength": 1,
+              "type": "string",
+              "format": "email"
+            },
+            "senha": {
+              "maxLength": 100,
+              "minLength": 6,
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "UsuarioRegistro": {
+          "required": [
+            "email",
+            "senha"
+          ],
+          "type": "object",
+          "properties": {
+            "email": {
+              "minLength": 1,
+              "type": "string",
+              "format": "email"
+            },
+            "senha": {
+              "maxLength": 100,
+              "minLength": 6,
+              "type": "string"
+            },
+            "senhaConfirmacao": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+contentType: yaml

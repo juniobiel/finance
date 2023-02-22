@@ -1,0 +1,29 @@
+_id: req_wrk_78a24c89d06444d3b4111b6be02a7203107961e0
+type: Request
+parentId: wrk_78a24c89d06444d3b4111b6be02a7203
+modified: 1677091435907
+created: 1677091388911
+url: "{{ base_url }}/sign-in"
+name: /sign-in
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "email": "teste7@example.com",
+      "senha": "Admin@123456"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1677091388911
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

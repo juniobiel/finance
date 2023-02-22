@@ -1,0 +1,17 @@
+_id: env_env_954bf532cea1becb4c8eb6cf0aa33919b60f1047_sub__9c17e047
+type: Environment
+parentId: env_954bf532cea1becb4c8eb6cf0aa33919b60f1047
+modified: 1677084432333
+created: 1676915948968
+name: Localhost
+data:
+  scheme: http
+  base_path: ""
+  host: example.com
+  base_url: https://localhost:7145
+dataPropertyOrder:
+  "&":
+    - base_url
+color: null
+isPrivate: false
+metaSortKey: 1676915948968

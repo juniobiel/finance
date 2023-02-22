@@ -1,0 +1,21 @@
+_id: req_wrk_78a24c89d06444d3b4111b6be02a7203664111cf
+type: Request
+parentId: wrk_78a24c89d06444d3b4111b6be02a7203
+modified: 1677088605013
+created: 1677088605013
+url: "{{ base_url }}/sign-out"
+name: /sign-out
+description: ""
+method: POST
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1677088605013
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
