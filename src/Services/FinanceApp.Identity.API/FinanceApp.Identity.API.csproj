@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Building Blocks\FinanceApp.Core\FinanceApp.Core.csproj" />
     <ProjectReference Include="..\..\Building Blocks\FinanceApp.Services.Core\FinanceApp.Services.Core.csproj" />
   </ItemGroup>
 
