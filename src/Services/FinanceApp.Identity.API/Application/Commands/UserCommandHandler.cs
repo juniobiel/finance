@@ -1,26 +1,41 @@
 ﻿
 using FinanceApp.Core.Commands;
+using FinanceApp.Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace FinanceApp.Identity.API.Application.Commands
 {
     public interface IUserCommandHandler : ICommandHandler<UserCommand>
     {
-        Task<IdentityResult> CreateUserHandle( UserCommand command );
-        Task<bool> VerifyUserHandle(UserCommand command );
+        Task<IdentityResult> CreateUserHandle( UsuarioRegistro usuarioRegistro );
+        Task<bool> VerifyUserHandle( UsuarioRegistro usuarioRegistro );
+        Task<SignInResult> LoginUserHandle( UsuarioLogin usuarioLogin );
+
     }
 
     public class UserCommandHandler : IUserCommandHandler
     {
-        public async Task<IdentityResult> CreateUserHandle( UserCommand command )
-        {
+        private readonly IUserCommand _userCommand;
 
-            return await command.CreateUser();
+        public UserCommandHandler( IUserCommand userCommand )
+        {
+            _userCommand = userCommand;
         }
 
-        public async Task<bool> VerifyUserHandle( UserCommand command )
+        public async Task<IdentityResult> CreateUserHandle( UsuarioRegistro usuarioRegistro )
         {
-            var userExists = await command.VerifyUser();
+
+            return await _userCommand.CreateUser(usuarioRegistro);
+        }
+
+        public async Task<SignInResult> LoginUserHandle( UsuarioLogin usuarioLogin )
+        {
+            return await _userCommand.LoginUser(usuarioLogin);
+        }
+
+        public async Task<bool> VerifyUserHandle( UsuarioRegistro usuarioRegistro )
+        {
+            var userExists = await _userCommand.VerifyUser(usuarioRegistro);
 
             if (userExists != null)
                 return true;

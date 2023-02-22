@@ -8,6 +8,7 @@ namespace FinanceApp.Identity.API.Configuration
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IUserCommandHandler, UserCommandHandler>();
+            services.AddScoped<IUserCommand, UserCommand>();
 
             return services;
         }

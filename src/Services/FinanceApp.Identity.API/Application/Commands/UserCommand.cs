@@ -4,38 +4,46 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FinanceApp.Identity.API.Application.Commands
 {
-    public interface IUserCommands
+    public interface IUserCommand
     {
-        Task<IdentityResult> CreateUser();
-        Task<IdentityUser> VerifyUser();
+        Task<IdentityResult> CreateUser( UsuarioRegistro usuarioRegistro );
+        Task<IdentityUser> VerifyUser( UsuarioRegistro usuarioRegistro );
+
+        Task<SignInResult> LoginUser(UsuarioLogin usuarioLogin);
     }
 
-    public class UserCommand : Command, IUserCommands
+    public class UserCommand : Command, IUserCommand
     {
-        private readonly UsuarioRegistro UsuarioRegistro;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public UserCommand( UsuarioRegistro usuarioRegistro, UserManager<IdentityUser> userManager )
+        public UserCommand( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager )
         {
-            UsuarioRegistro = usuarioRegistro;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> CreateUser()
+        public async Task<IdentityResult> CreateUser( UsuarioRegistro usuarioRegistro )
         {
             var user = new IdentityUser
             {
-                UserName = UsuarioRegistro.UserName,
-                Email = UsuarioRegistro.Email,
+                UserName = usuarioRegistro.UserName,
+                Email = usuarioRegistro.Email,
                 EmailConfirmed = true
             };
 
-            return await _userManager.CreateAsync(user, UsuarioRegistro.Senha);
+            return await _userManager.CreateAsync(user, usuarioRegistro.Senha);
         }
 
-        public async Task<IdentityUser> VerifyUser()
+        public async Task<IdentityUser> VerifyUser( UsuarioRegistro usuarioRegistro )
         {
-            return await _userManager.FindByEmailAsync(UsuarioRegistro.Email);
+            return await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+        }
+
+        public async Task<SignInResult> LoginUser(UsuarioLogin usuarioLogin)
+        {
+            return await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha,
+                false, true);
         }
     }
 }
