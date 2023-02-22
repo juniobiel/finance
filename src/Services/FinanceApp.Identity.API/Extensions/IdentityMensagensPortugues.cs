@@ -8,10 +8,10 @@ namespace FinanceApp.Identity.API.Extensions
         public override IdentityError ConcurrencyFailure() { return new IdentityError { Code = nameof(ConcurrencyFailure), Description = "Falha de concorrência otimista, o objeto foi modificado." }; }
         public override IdentityError PasswordMismatch() { return new IdentityError { Code = nameof(PasswordMismatch), Description = "Senha incorreta." }; }
         public override IdentityError InvalidToken() { return new IdentityError { Code = nameof(InvalidToken), Description = "Token inválido." }; }
-        public override IdentityError LoginAlreadyAssociated() { return new IdentityError { Code = nameof(LoginAlreadyAssociated), Description = "Já existe um usuário com este login." }; }
-        public override IdentityError InvalidUserName( string userName ) { return new IdentityError { Code = nameof(InvalidUserName), Description = $"O login '{userName}' é inválido, pode conter apenas letras ou dígitos." }; }
+        public override IdentityError LoginAlreadyAssociated() { return new IdentityError { Code = nameof(LoginAlreadyAssociated), Description = "Já existe um usuário com este User Name." }; }
+        public override IdentityError InvalidUserName( string userName ) { return new IdentityError { Code = nameof(InvalidUserName), Description = $"O User Name '{userName}' é inválido, pode conter apenas letras ou dígitos." }; }
         public override IdentityError InvalidEmail( string email ) { return new IdentityError { Code = nameof(InvalidEmail), Description = $"O email '{email}' é inválido." }; }
-        public override IdentityError DuplicateUserName( string userName ) { return new IdentityError { Code = nameof(DuplicateUserName), Description = $"O login '{userName}' já está sendo utilizado." }; }
+        public override IdentityError DuplicateUserName( string userName ) { return new IdentityError { Code = nameof(DuplicateUserName), Description = $"O User Name '{userName}' já está sendo utilizado." }; }
         public override IdentityError DuplicateEmail( string email ) { return new IdentityError { Code = nameof(DuplicateEmail), Description = $"O email '{email}' já está sendo utilizado." }; }
         public override IdentityError InvalidRoleName( string role ) { return new IdentityError { Code = nameof(InvalidRoleName), Description = $"A permissão '{role}' é inválida." }; }
         public override IdentityError DuplicateRoleName( string role ) { return new IdentityError { Code = nameof(DuplicateRoleName), Description = $"A permissão '{role}' já está sendo utilizada." }; }

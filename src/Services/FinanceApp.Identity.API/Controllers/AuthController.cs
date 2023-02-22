@@ -1,4 +1,5 @@
-﻿using FinanceApp.Identity.API.Models;
+﻿using FinanceApp.Identity.API.Application.Commands;
+using FinanceApp.Identity.API.Models;
 using FinanceApp.Services.Core.Controllers;
 using FinanceApp.Services.Core.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -12,14 +13,17 @@ namespace FinanceApp.Identity.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IUserCommandHandler _userCommandsHandler;
 
         public AuthController( SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            IOptions<AppSettings> appSettings )
+            IOptions<AppSettings> appSettings,
+            IUserCommandHandler userCommandsHandler )
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _userCommandsHandler = userCommandsHandler;
         }
 
         [HttpPost("create-account")]
@@ -27,21 +31,16 @@ namespace FinanceApp.Identity.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var existsUser = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            var userCommand = new UserCommand(usuarioRegistro, _userManager);
+
+            var existsUser = await _userCommandsHandler.VerifyUserHandle(userCommand);
             
-            if(existsUser != null)
+            if(existsUser)
             {
                 AdicionarErroProcessamento("Usuário já existente!");
             }
 
-            var user = new IdentityUser
-            {
-                UserName = usuarioRegistro.Nome,
-                Email = usuarioRegistro.Email,
-                EmailConfirmed = true
-            };
-
-            var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
+            var result = await _userCommandsHandler.CreateUserHandle(userCommand);
 
             foreach (var error in result.Errors)
             {
