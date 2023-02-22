@@ -11,6 +11,8 @@ namespace FinanceApp.Identity.API.Application.Commands
         Task<bool> VerifyUserHandle( UsuarioRegistro usuarioRegistro );
         Task<SignInResult> LoginUserHandle( UsuarioLogin usuarioLogin );
 
+        Task LogoutUserHandle();
+
     }
 
     public class UserCommandHandler : IUserCommandHandler
@@ -31,6 +33,11 @@ namespace FinanceApp.Identity.API.Application.Commands
         public async Task<SignInResult> LoginUserHandle( UsuarioLogin usuarioLogin )
         {
             return await _userCommand.LoginUser(usuarioLogin);
+        }
+
+        public async Task LogoutUserHandle()
+        {
+            await _userCommand.LogoutUser();
         }
 
         public async Task<bool> VerifyUserHandle( UsuarioRegistro usuarioRegistro )

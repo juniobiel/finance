@@ -35,7 +35,8 @@ namespace FinanceApp.Services.Core.Identity
                     ValidAudience = appSettings.ValidoEm,
                     ValidIssuer = appSettings.Emissor
                 };
-            });
+            })
+            .AddCookie("Identity.Application");
         }
 
         public static void UseAuthConfiguration( this IApplicationBuilder app )

@@ -73,6 +73,12 @@ namespace FinanceApp.Identity.API.Controllers
             return CustomResponse();
         }
 
+        [HttpPost("sign-out")]
+        public async Task<ActionResult> Logout()
+        {
+            await _userCommandHandler.LogoutUserHandle();
+            return CustomResponse(Ok("Usuário Deslogado"));
+        }
 
         private async Task<UsuarioRespostaLogin> GerarJwt( string email )
         {

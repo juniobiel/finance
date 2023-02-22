@@ -1,4 +1,5 @@
 ﻿using FinanceApp.Core.Commands;
+using FinanceApp.Core.User;
 using FinanceApp.Identity.API.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,24 +11,29 @@ namespace FinanceApp.Identity.API.Application.Commands
         Task<IdentityUser> VerifyUser( UsuarioRegistro usuarioRegistro );
 
         Task<SignInResult> LoginUser(UsuarioLogin usuarioLogin);
+        Task LogoutUser();
     }
 
     public class UserCommand : Command, IUserCommand
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IAspNetUser _user;
 
-        public UserCommand( UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager )
+        public UserCommand( UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager, 
+            IAspNetUser user )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _user = user;
         }
 
         public async Task<IdentityResult> CreateUser( UsuarioRegistro usuarioRegistro )
         {
             var user = new IdentityUser
             {
-                UserName = usuarioRegistro.UserName,
+                UserName = usuarioRegistro.Email,
                 Email = usuarioRegistro.Email,
                 EmailConfirmed = true
             };
@@ -44,6 +50,12 @@ namespace FinanceApp.Identity.API.Application.Commands
         {
             return await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha,
                 false, true);
+        }
+
+        public async Task LogoutUser()
+        {
+            if (_user.EstaAutenticado())
+                await _signInManager.SignOutAsync();
         }
     }
 }

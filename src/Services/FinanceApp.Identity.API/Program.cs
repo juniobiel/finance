@@ -8,24 +8,14 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddEnvironmentVariables();
 
 builder.Services.AddIdentityConfig(builder.Configuration);
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddApiConfiguration();
+builder.Services.AddSwaggerConfiguration();
 builder.Services.RegisterServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwaggerConfiguration();
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseApiConfiguration(builder.Environment);
 
 app.Run();
