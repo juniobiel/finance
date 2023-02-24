@@ -21,4 +21,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\FinanceApp.Budget.API\FinanceApp.Budget.API.csproj" />
+    <ProjectReference Include="..\..\Services\FinanceApp.Identity.API\FinanceApp.Identity.API.csproj" />
+  </ItemGroup>
+
 </Project>
