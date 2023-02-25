@@ -42,7 +42,6 @@ namespace FinanceApp.Services.Core.Swagger
                         Array.Empty<string>()
                     }
                 });
-
             });
         }
 
